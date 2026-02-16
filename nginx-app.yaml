@@ -1,0 +1,19 @@
+## this is to register the application to argocd, and then argocd will sync the application to the cluster
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nginx-sample-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/saminder-chahal/k8s-argoCD-sample-app.git
+    path: nginx-app
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
